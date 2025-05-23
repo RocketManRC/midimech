@@ -317,7 +317,7 @@ $ sudo ln -s  /usr/lib/aarch64-linux-gnu/alsa-lib /usr/local/lib/alsa-lib
 
 Rename settings.ini.example to settings.ini
 
-This will install a virtual midi port called VirMIDI (this has to be done everytime on boot):
+The following will install a virtual midi port called VirMIDI (this has to be done everytime on boot):
 
 $ sudo modprobe snd_virmidi midi_devs=1 
 
@@ -331,8 +331,8 @@ I didn't try it but Surge XT should run on the Pi4 and Reaper with some plugins 
 
 To attach a hardware synth that supports USB MIDI (for example the Roland S-1), change the midi_out setting to the device name (e.g. "s-1" for the Roland S-1).
 
-Note that the midi_out setting needs to be in lower case,
+Note that the midi_out setting needs to be in lower case.
 
-To turn this into a USB MIDI device I use a matching pair of DIY wireless "dongles" made from ESP32-S3 microcontroller boards. An alternative is a USB to MIDI adapter cable.
+To turn this into a USB MIDI device I use a matching pair of DIY low latency wireless "dongles" made from ESP32-S3 microcontroller boards. An alternative is a USB to MIDI adapter cable.
 
 
