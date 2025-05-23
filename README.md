@@ -1,6 +1,17 @@
 
 # midimech
 
+**Changes in May 2025 by RocketManRC:**
+
+- Support for the LaunchPad Mini Mk3 (core.py)
+- Added a setting for 64 pad display (for LaunchPads)
+- Added a setting to scale the size of the display (mostly for the Raspberry Pi with a small touchscreen)
+- Instructions for building on MacOS and Raspberry Pi
+
+Details are at the end of the original readme below.
+
+---
+
 ![midimech](https://i.imgur.com/iNKaTi3.png)
 
 <a href="https://www.buymeacoffee.com/flipcoder" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
@@ -247,4 +258,73 @@ Thank you!
 ## Contact / Questions
 
 I'm on the LinnStrument Discord at https://discord.gg/h2BcrzmTXe.  Come hang out!
+
+---
+
+## Details for building on MacOS and Raspberry Pi (May 2025)
+
+### MacOS
+
+This was done on a MacBook Pro M4 13" running Sequoia (15.3.1) but should be no problem on older OS versions and Intel Macs. 
+
+Create project folder (e.g. ~/projects/python:
+
+$ cd ~/projects/python
+$ git clone https://github.com/rocketmanrc/midimech.git
+
+Make a python virtual environment and then use it:
+
+$ cd midimech
+$ python3 -m venv myenv
+$ source myenv/bin/activate
+
+Install the requirements:
+
+$ pip3 install -r requirements.txt 
+
+Make a virtual midi device midimech as per the instructions in the original readme above.
+
+Rename settings.ini.example to settings.ini
+
+Run the application in the virtual environment with:
+
+$ python3 midimech.py
+
+Optionally use vscode for development:
+
+- From a terminal in the midimech folder run "code ."
+- Create a launch.json file that uses the python in the myenv/bin folder.
+
+Note that you may have to have to select an older version of the python debugger extension if you get an error saying that the version of python is too old (this happened to me during development when the debugger extension had auto update turned on).
+
+If you want to use midimech and a LaunchPad with Garageband on the Mac you will need to "hijack" the LaunchPad's MIDI Out port as Garageband will take inputs from any MIDI port available. I use the free application MIDI Pipe for that as well as for testing any MIDI device.
+
+### Raspberry Pi
+
+I did this on a Pi 4B with 1GB RAM and a 5" 800x480 IPS display with capacitive touch. I used the latest version of PiOS (Bookworm 64bit as of May 2025). I was not able to get it to run using the 32bit version.
+
+I was even able to get it working on a Pi Zero 2 W. It is very slow to load but seems to run fine.
+
+$ git clone https://github.com/rocketmanrc/midimech.git
+$ cd midimech
+$ python3 -m venv myenv --system-site-packages
+$ source myenv/bin/activate
+$ sudo apt install libjack-jackd2-dev
+$ sudo apt install libasound2-dev
+$ pip3 install -r requirements.txt 
+$ sudo ln -s /usr/share/alsa /usr/local/share/alsa
+$ sudo ln -s  /usr/lib/aarch64-linux-gnu/alsa-lib /usr/local/lib/alsa-lib 
+
+This will install a virtual midi port called VirMIDI (this has to be done everytime on boot):
+
+$ sudo modprobe snd_virmidi midi_devs=1 
+
+Change midi_out in settings.py from "midimech" to "virmidi". I didn't try it but Surge XT should run on the Pi4 and Reaper with some plugins should work too.
+
+To attach a hardware synth that supports USB MIDI (for example the Roland S-1), change the midi_out setting to the device name (e.g. "s-1" for the Roland S-1).
+
+Note that the midi_out setting needs to be in lower case,
+
+To turn this into a USB MIDI device I use a matching pair of DIY wireless "dongles" made from ESP32-S3 microcontroller boards. An alternative is a USB to MIDI adapter cable.
+
 

@@ -56,6 +56,7 @@ class Settings:
     hardware_split: bool = False
     
     # Midi out device name, partial matches allowed
+    # midi_out: str = "usbmiditoespnow" # you can put your own MIDI device here instead of "midimech"
     midi_out: str = "midimech"
     
     # Split device name, partial matches allowed
@@ -82,6 +83,9 @@ class Settings:
     # Right now these are calculated from size, don't use
     width: int = 16
     height: int = 8
+
+    # Scale the size of the app (for small displays)
+    app_scale: float = 1.0 # 0.75 is good for a raspberry pi 5" display
 
     # launchpad viberato method (off, mod, or pitch)
     vibrato: str = 'mod'

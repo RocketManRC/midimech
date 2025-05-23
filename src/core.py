@@ -1423,6 +1423,9 @@ class Core:
         if self.options.size == 128:
             self.options.width = 16
             self.split_point = None
+        elif self.options.size == 64:
+            self.options.width = 8
+            self.split_point = None
         elif self.options.size == 200:
             self.options.width = 25
             self.split_point = 11
@@ -1473,7 +1476,7 @@ class Core:
         self.menu_sz = 32 #96  # full
         self.max_width = 25  # MAX WIDTH OF LINNSTRUMENT
         self.board_h = 8
-        self.scale = vec2(64.0)
+        self.scale = vec2(64.0 * self.options.app_scale)
 
         self.board_w = self.options.width
         self.board_sz = ivec2(self.board_w, self.board_h)
@@ -1770,6 +1773,11 @@ class Core:
         num_launchpads = 0
         if self.options.launchpad:
             launchpads = []
+            lp = launchpad.LaunchpadMiniMk3()
+            if lp.Check(1):
+                if lp.Open(1):
+                    self.launchpads += [Launchpad(self, lp, "minimk3", num_launchpads)]
+                    num_launchpads += 1
             lp = launchpad.LaunchpadProMk3()
             if lp.Check(0):
                 if lp.Open(0):

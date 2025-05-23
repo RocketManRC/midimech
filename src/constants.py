@@ -1,4 +1,6 @@
-from glm import ivec2, vec2, ivec3, vec3
+from glm import ivec2, vec2, ivec3, vec3 
+import math
+from src.settings import Settings
 
 TITLE = "midimech"
 # FOCUS = False
@@ -7,7 +9,8 @@ TITLE = "midimech"
 NOTES_SHARPS = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 NOTES_FLATS = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
 WHOLETONE = True
-FONT_SZ = 32
+# Need to change the font if the size of the app scales
+FONT_SZ = 32 if Settings.app_scale >= 1.0 else math.floor(32 * Settings.app_scale) - 1
 BRIGHTNESS = 0.4
 C_COLOR = ivec3(0, 128 * BRIGHTNESS, 0)
 YELLOW = ivec3(205 * BRIGHTNESS, 127 * BRIGHTNESS, 0)
