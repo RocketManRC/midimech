@@ -297,7 +297,7 @@ Optionally use vscode for development:
 
 Note that you may have to have to select an older version of the python debugger extension if you get an error saying that the version of python is too old (this happened to me during development when the debugger extension had auto update turned on).
 
-If you want to use midimech and a LaunchPad with Garageband on the Mac you will need to "hijack" the LaunchPad's MIDI Out port as Garageband will take inputs from any MIDI port available. I use the free application MIDI Pipe for that as well as for testing any MIDI device.
+If you want to use midimech and a LaunchPad with Garageband on the Mac you will need to "hijack" the LaunchPad's MIDI Out port after running midimech as Garageband will take inputs from any MIDI port available. I use the free application MIDI Pipe for that as well as for testing any MIDI device.
 
 ### Raspberry Pi
 
