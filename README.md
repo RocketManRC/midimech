@@ -269,13 +269,13 @@ This was done on a MacBook Pro M4 13" running Sequoia (15.3.1) but should be no 
 
 Create project folder (e.g. ~/projects/python:
 
-$ cd ~/projects/python
+$ cd ~/projects/python  
 $ git clone https://github.com/rocketmanrc/midimech.git
 
 Make a python virtual environment and then use it:
 
-$ cd midimech
-$ python3 -m venv myenv
+$ cd midimech  
+$ python3 -m venv myenv  
 $ source myenv/bin/activate
 
 Install the requirements:
@@ -305,21 +305,29 @@ I did this on a Pi 4B with 1GB RAM and a 5" 800x480 IPS display with capacitive 
 
 I was even able to get it working on a Pi Zero 2 W. It is very slow to load but seems to run fine.
 
-$ git clone https://github.com/rocketmanrc/midimech.git
-$ cd midimech
-$ python3 -m venv myenv --system-site-packages
-$ source myenv/bin/activate
-$ sudo apt install libjack-jackd2-dev
-$ sudo apt install libasound2-dev
-$ pip3 install -r requirements.txt 
-$ sudo ln -s /usr/share/alsa /usr/local/share/alsa
+$ git clone https://github.com/rocketmanrc/midimech.git    
+$ cd midimech  
+$ python3 -m venv myenv --system-site-packages  
+$ source myenv/bin/activate  
+$ sudo apt install libjack-jackd2-dev  
+$ sudo apt install libasound2-dev  
+$ pip3 install -r requirements.txt  
+$ sudo ln -s /usr/share/alsa /usr/local/share/alsa  
 $ sudo ln -s  /usr/lib/aarch64-linux-gnu/alsa-lib /usr/local/lib/alsa-lib 
+
+Rename settings.ini.example to settings.ini
 
 This will install a virtual midi port called VirMIDI (this has to be done everytime on boot):
 
 $ sudo modprobe snd_virmidi midi_devs=1 
 
-Change midi_out in settings.py from "midimech" to "virmidi". I didn't try it but Surge XT should run on the Pi4 and Reaper with some plugins should work too.
+Change midi_out in settings.py from "midimech" to "virmidi". 
+
+Run the application in the virtual environment with:
+
+$ python3 midimech.py
+
+I didn't try it but Surge XT should run on the Pi4 and Reaper with some plugins should work too.
 
 To attach a hardware synth that supports USB MIDI (for example the Roland S-1), change the midi_out setting to the device name (e.g. "s-1" for the Roland S-1).
 
